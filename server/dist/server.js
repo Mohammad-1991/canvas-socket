@@ -22,12 +22,18 @@ io.on("connection", (socket) => {
     // if (canvasState) {
     //   socket.emit("updateCanvas", canvasState);
     // }
+    socket.on("mouse_activity", (data) => {
+        socket.broadcast.emit("all_mouse_activity", {
+            session_id: socket.id,
+            coords: data,
+        });
+    });
     // Listen for 'canvasChange' events from clients
     socket.on("canvasChange", (canvasJson) => {
-        console.log("canvasChanged", canvasJson);
         canvasState = canvasJson;
+        console.log(canvasJson);
         // Broadcast the canvas state to other clients (except the sender)
-        socket.broadcast.emit("updateCanvas", canvasJson);
+        socket.broadcast.emit("updateCanvas", { canvasJson, sessionId: socket.id });
         console.log("updateCanvas emitted");
     });
     socket.on("disconnect", () => {

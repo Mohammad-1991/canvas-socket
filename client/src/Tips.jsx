@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 const Tips = () => {
   return (
-    <Box   sx={{ width:300, border:2, borderColor:'gray', padding:2, height:'fit-content', alignSelf:'start'}}>
+    <Box   sx={{ width:300, border:2, borderColor:'gray', padding:2, height:'fit-content', alignSelf:'start', marginTop:9.4 }}>
         <Box display={'flex'} flexDirection={'column'} gap={2}>
 
             <Typography fontSize={16} fontWeight={700} alignSelf={'center'} flexWrap={'wrap'}>Some Tips for Using Canvas</Typography>

@@ -64,28 +64,65 @@ export const applyGroupStyles = (canvas) => {
         render: (ctx, left, top) => {
           const img = new Image();
           img.src = "/src/assets/cancel.svg"; // Path to your cancel icon
-    
+      
           // Draw the cancel icon
           img.onload = () => {
             ctx.drawImage(img, left - 12, top - 12, 24, 24); // Center the icon
           };
-    
+      
           if (img.complete) {
             ctx.drawImage(img, left - 12, top - 12, 24, 24);
           }
         },
         cornerSize: 24,
-    
-        // Add click functionality to remove the object
+      
+        // Add click functionality to remove all selected objects
         mouseUpHandler: function (eventData, transform, x, y) {
-          const target = transform.target; // Reference to the clicked object
+          const target = transform.target; // Reference to the clicked object or active selection
           const canvas = target.canvas; // Reference to the canvas
-    
-          canvas.remove(target); // Remove the object from the canvas
+      
+          if (target.type === "activeselection") {
+            // If it's a group selection, remove all objects within the selection
+            target._objects.forEach((object) => {
+              canvas.remove(object); // Remove each object from the canvas
+            });
+          } else {
+            // Otherwise, remove the individual object
+            canvas.remove(target);
+          }
+      
+          canvas.discardActiveObject(); // Clear the active selection
           canvas.renderAll(); // Re-render the canvas
           return true; // Return true to finalize the mouse action
         },
       });
+
+      activeObject.controls.bl = new fabric.Control({
+        x: -0.5, // Position at bottom-left
+        y: 0.5,
+        offsetX: -15,
+        offsetY: 0,
+        cursorStyle: "ew-resize",
+        render: (ctx, left, top) => {
+          const size = 24;
+          const img = new Image();
+          img.src = "/src/assets/doubleArrow.svg"; // Path to your resize icon
+    
+          // Draw the resize icon
+          img.onload = () => {
+            ctx.drawImage(img, left - size / 2, top - size / 2, size, size);
+          };
+    
+          if (img.complete) {
+            ctx.drawImage(img, left - size / 2, top - size / 2, size, size);
+          }
+        },
+        cornerSize: 24,
+    
+        actionHandler: fabric.controlsUtils.scalingEqually, // Use Fabric's default scaling for resizing
+        actionName: "scalingEqually", // Ensures the proper scaling action is triggered
+      });
+    
     
       
 
@@ -122,35 +159,6 @@ export const applyGroupStyles = (canvas) => {
     }
   });
 
-  // Handle selection update
-  canvas.on("selection:updated", () => {
-    const activeObject = canvas.getActiveObject();
-    
-    if (activeObject && activeObject.type === "activeselection") {
-      console.log("Reapplying styles to group selection...");
-
-      // Reapply styles to the group selection border
-      activeObject.set({
-        borderColor: "black",
-        cornerColor: "black",
-        cornerSize: 12,
-        cornerStyle: "circle",
-        padding: 10,
-        hasBorders: true,
-        hasControls: true
-      });
-
-      activeObject._objects.forEach((object) => {
-        object.set({
-          hasControls: false,
-          hasBorders: false,
-        });
-        object.setCoords();  // Update coordinates again
-      });
-
-      canvas.renderAll();  // Render changes
-    }
-  });
 
   // Handle selection clearing (when objects are deselected)
   canvas.on("selection:cleared", () => {

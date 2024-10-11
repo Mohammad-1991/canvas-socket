@@ -5,6 +5,7 @@ import { customizedDrawBroders } from "../utils/customizedDrawBorders";
 import { handleImageDrop } from "../fabric_manager/DragAndDrop";
 import { io } from "socket.io-client"; // Importing Socket.IO client
 import { addCircle, addSquare } from "../fabric_manager/Shapes";
+import { applyGroupStyles } from "../fabric_manager/MultiSelectedControls";
 
 const socket = io("http://localhost:2020"); // Adjust this to match your server address
 
@@ -27,6 +28,8 @@ export const useCanvasRender = () => {
       height: 400,
       cornerStyle: "circle",
     });
+    
+    applyGroupStyles(canvas)
 
     // Update canvas state
     setCanvas(canvas);
@@ -45,6 +48,7 @@ export const useCanvasRender = () => {
     canvas.on("object:modified", emitCanvasChanges);
     canvas.on("object:added", emitCanvasChanges);
     canvas.on("object:removed", emitCanvasChanges);
+
 
     // Socket listener for receiving canvas updates from server
     socket.on("updateCanvas", (data) => {

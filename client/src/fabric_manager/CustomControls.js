@@ -93,19 +93,19 @@ export const customControls = (object) => {
     },
     cornerSize: 24,
 
-    actionHandler: fabric.controlsUtils.scalingX, // Use Fabric's default scaling for resizing
-    actionName: "scaleX", // Ensures the proper scaling action is triggered
+    actionHandler: fabric.controlsUtils.scalingEqually, // Use Fabric's default scaling for resizing
+    actionName: "scalingEqually", // Ensures the proper scaling action is triggered
   });
 
   object.setControlsVisibility({
     tl: true,
     tr: true,
     bl: true,
-    br: true,
-    mt: true,
-    mb: true,
-    ml: true,
-    mr: true,
+    br: false,
+    mt: false,
+    mb: false,
+    ml: false,
+    mr: false,
   });
 
   delete object.controls.mtr;

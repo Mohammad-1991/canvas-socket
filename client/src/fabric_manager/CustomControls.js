@@ -161,15 +161,9 @@ export const customControls = (object) => {
       }
     },
     cornerSize: 24,
-    actionHandler: fabric.controlsUtils.scalingEqually,
-    actionName: "scaleX",
+    actionHandler: fabric.controlsUtils.scalingEqually, // Use Fabric's default scaling for resizing
+    actionName: "scalingEqually", // Ensures the proper scaling action is triggere
   });
-
-  // Preload image to ensure it's ready when needed
-  resizeIcon.onload = function () {
-    // Optionally trigger a canvas refresh to ensure the icon is rendered
-    object.canvas.renderAll();
-  };
 
   object.setControlsVisibility({
     tl: true,

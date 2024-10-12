@@ -5,7 +5,7 @@ import { customizedDrawBroders } from "../utils/customizedDrawBorders";
 import { handleImageDrop } from "../fabric_manager/DragAndDrop";
 import { io } from "socket.io-client"; // Importing Socket.IO client
 import { addCircle, addSquare } from "../fabric_manager/Shapes";
-import { applyGroupStyles } from "../fabric_manager/MultiSelectedControls 1";
+import { applyGroupStyles } from "../fabric_manager/MultiSelectedControls";
 
 const socket = io("http://localhost:2020"); // Adjust this to match your server address
 
@@ -30,15 +30,6 @@ export const useCanvasRender = () => {
       cornerStyle: "circle",
     });
     applyGroupStyles(canvas);
-
-    setCanvas(canvas);
-    if (canvasJ && canvas) {
-      console.log("i happend");
-
-      canvas.loadFromJSON(canvasJ, () => {
-        canvas.renderAll();
-      });
-    }
     // Update canvas state
 
     // Handle drag and drop for images

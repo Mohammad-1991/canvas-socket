@@ -17,7 +17,7 @@ export const customizedDrawBroders = () => {
       shouldStroke = false;
 
     ctx.save();
-    // Set the border color to red
+    // Set the border color to red (or any other color)
     ctx.strokeStyle = "#0466c8"; // Change the color here
     this._setLineDash(
       ctx,

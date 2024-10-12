@@ -3,6 +3,14 @@ import http from "http";
 import { Server, Socket } from "socket.io";
 
 const app = express();
+
+app.use("/", (req, res) => {
+  res.json({
+    message:
+      "Welcome to secure shared server - Presented by Mohammad-Aghajanpour",
+  });
+});
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {

@@ -16,8 +16,7 @@ export const addSquare = (canvas) => {
     });
 
     customControls(rect);
-    console.log(canvas, "rect");
-
+    // console.log(canvas, "rect");
     canvas.add(rect);
   }
 };

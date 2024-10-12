@@ -7,6 +7,11 @@ const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("socket.io");
 const app = (0, express_1.default)();
+app.use("/", (req, res) => {
+    res.json({
+        message: "Welcome to secure shared server - Presented by Mohammad-Aghajanpour",
+    });
+});
 const server = http_1.default.createServer(app);
 const io = new socket_io_1.Server(server, {
     cors: {

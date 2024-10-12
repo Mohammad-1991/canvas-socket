@@ -68,7 +68,6 @@ export const useCanvasRender = () => {
       console.log("Connected to server");
     });
 
-    // Cleanup on unmount
     return () => {
       canvas.dispose();
       socket.off("updateCanvas");

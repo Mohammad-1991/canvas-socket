@@ -15,7 +15,6 @@ export const useCanvasRender = () => {
   const ImageRef = useRef(null);
   const ImageRef2 = useRef(null);
   const [canvas, setCanvas] = useState(null);
-  const [canvasJ, setCanvasJ] = useState(null);
 
   // Zoom In/Out function
   ZoomInOutFunctionality(canvas);
@@ -31,6 +30,7 @@ export const useCanvasRender = () => {
     });
     applyGroupStyles(canvas);
     // Update canvas state
+    setCanvas(canvas);
 
     // Handle drag and drop for images
     handleImageDrop(canvasContainerRef, canvas, ImageRef, 0.3);
@@ -44,11 +44,7 @@ export const useCanvasRender = () => {
     // Socket listener for receiving canvas updates from server
     socket.on("updateCanvas", (data) => {
       const { canvasJson } = data;
-      // console.log(canvasJson, "canvasJson");
-
-      // if (canvas && canvasJson) {
-      //   setCanvasJ(canvasJson);
-      // }
+      // console.log(canvasJson);
     });
 
     // Handle disconnection event
